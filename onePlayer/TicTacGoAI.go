@@ -162,17 +162,11 @@ func minimax(allMoves []string, depth int, isMaximizing bool) (bestScore int) {
 		bestScore = convertPlayer[player]
 		return
 	}
-	prev_value := " "
 	if isMaximizing {
 		bestScore = -1000
 		for index, value := range allMoves {
 			if value == " " {
-				if prev_value == "x" {
-					allMoves[index] = "o"
-				} else {
-					allMoves[index] = "x"
-				}
-				prev_value = value
+				allMoves[index] = "x"
 				score := minimax(allMoves, depth+1, false)
 				allMoves[index] = " "
 				if bestScore < score {
@@ -185,12 +179,7 @@ func minimax(allMoves []string, depth int, isMaximizing bool) (bestScore int) {
 		bestScore = 1000
 		for index, value := range allMoves {
 			if value == " " {
-				if prev_value == "x" {
-					allMoves[index] = "o"
-				} else {
-					allMoves[index] = "x"
-				}
-				prev_value = value
+				allMoves[index] = "o"
 				score := minimax(allMoves, depth+1, true)
 				allMoves[index] = " "
 				if bestScore > score {
@@ -233,7 +222,7 @@ func main() {
 		}
 	}
 
-	if result {
+	if result && whoIsWinner != "tie" {
 		fmt.Printf("\nWell done %s, You Won!!", whoIsWinner)
 	} else {
 		fmt.Printf("\nUnlucky it's a draw")
